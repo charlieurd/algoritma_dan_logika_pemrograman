@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritma dan Pemrograman Dasar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        header {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 15px;
+            word-wrap: break-word;
+        }
+
+        .author-info {
+            color: #666;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            word-wrap: break-word;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            word-wrap: break-word;
+        }
+
+        h4 {
+            font-size: 1em;
+        }
+
+        p, li {
+            font-size: 1em;
+        }
+
+        .benefit-list, .objective-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .benefit-list li, .objective-list li {
+            padding: 10px;
+            margin: 10px 0;
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .example-box {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .code-box {
+            background: #2d3748;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .quiz-option {
+            background: #f0f4ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: #e0e8ff;
+        }
+
+        .quiz-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #764ba2;
+        }
+
+        .quiz-option.correct {
+            background: #48bb78;
+            color: white;
+        }
+
+        .quiz-option.incorrect {
+            background: #f56565;
+            color: white;
+        }
+
+        .submit-btn {
+            background: #48bb78;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #38a169;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .result.pass {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .result.fail {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-item {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .footer-item h3 {
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        /* Responsif untuk Tablet (768px kebawah) */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            header {
+                padding: 25px 15px;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            h3 {
+                font-size: 1.1em;
+            }
+
+            .section {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .author-info {
+                font-size: 0.95em;
+            }
+
+            .example-box {
+                padding: 15px;
+            }
+
+            .code-box {
+                padding: 12px;
+                font-size: 0.85em;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+
+        /* Responsif untuk Mobile (480px kebawah) */
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 8px;
+            }
+
+            header {
+                padding: 20px 12px;
+                border-radius: 10px;
+            }
+
+            h1 {
+                font-size: 1.4em;
+                margin-bottom: 10px;
+            }
+
+            h2 {
+                font-size: 1.2em;
+                padding-bottom: 8px;
+            }
+
+            h3 {
+                font-size: 1em;
+                margin-top: 15px;
+            }
+
+            h4 {
+                font-size: 0.95em;
+            }
+
+            p, li {
+                font-size: 0.95em;
+            }
+
+            .section {
+                padding: 12px;
+                border-radius: 10px;
+                margin-bottom: 12px;
+            }
+
+            .author-info {
+                font-size: 0.9em;
+            }
+
+            .author-info p {
+                margin: 5px 0;
+            }
+
+            .benefit-list li, .objective-list li {
+                padding: 8px;
+                margin: 8px 0;
+                font-size: 0.9em;
+            }
+
+            .example-box {
+                padding: 12px;
+                margin: 10px 0;
+            }
+
+            .code-box {
+                padding: 10px;
+                font-size: 0.8em;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+
+            .quiz-option {
+                padding: 12px;
+                margin: 8px 0;
+                font-size: 0.9em;
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 1em;
+            }
+
+            .result {
+                padding: 15px;
+                font-size: 0.95em;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .footer-item {
+                padding: 12px;
+            }
+
+            .footer-item h3 {
+                font-size: 1em;
+            }
+
+            ol, ul {
+                padding-left: 15px;
+            }
+        }
+
+        /* Responsif untuk Mobile Kecil (360px kebawah) */
+        @media screen and (max-width: 360px) {
+            h1 {
+                font-size: 1.2em;
+            }
+
+            h2 {
+                font-size: 1.1em;
+            }
+
+            .section {
+                padding: 10px;
+            }
+
+            .code-box {
+                font-size: 0.75em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🖥️ Algoritma dan Pemrograman Dasar</h1>
+            <h3>Konsep Algoritma dan Logika Pemrograman</h3>
+            <div class="author-info">
+                <p><strong>Dibuat oleh:</strong> Charlie Decka Wirald Yuardana</p>
+                <p><strong>Kelas:</strong> XIIB | <strong>Absen:</strong> 4</p>
+                <p><strong>Tahun:</strong> 2024</p>
+            </div>
+        </header>
+
+        <!-- Tujuan Pembelajaran -->
+        <div class="section">
+            <h2>🎯 Tujuan Pembelajaran</h2>
+            <ul class="objective-list">
+                <li>Memahami konsep dasar algoritma dan logika pemrograman</li>
+                <li>Mampu membuat algoritma sederhana untuk memecahkan masalah</li>
+                <li>Mengenal struktur dasar pemrograman</li>
+                <li>Mengembangkan kemampuan berpikir logis dan sistematis</li>
+            </ul>
+        </div>
+
+        <!-- Manfaat -->
+        <div class="section">
+            <h2>💡 Manfaat dalam Kehidupan Sehari-hari</h2>
+            <ul class="benefit-list">
+                <li><strong>Pemecahan Masalah:</strong> Membantu berpikir sistematis dalam menyelesaikan masalah</li>
+                <li><strong>Efisiensi:</strong> Mengoptimalkan cara kerja dan menghemat waktu</li>
+                <li><strong>Pengambilan Keputusan:</strong> Meningkatkan kemampuan analisis</li>
+                <li><strong>Karir Digital:</strong> Membuka peluang karir di bidang teknologi</li>
+            </ul>
+        </div>
+
+        <!-- Pertanyaan Pematik -->
+        <div class="section">
+            <h2>❓ Pertanyaan Pematik</h2>
+            <div class="example-box">
+                <ol style="padding-left: 20px;">
+                    <li style="margin: 10px 0;">Bagaimana cara kamu membuat mie instan? Coba tuliskan langkah-langkahnya!</li>
+                    <li style="margin: 10px 0;">Apakah urutan langkah tersebut penting? Apa yang terjadi jika salah?</li>
+                    <li style="margin: 10px 0;">Bagaimana GPS menentukan jalan tercepat?</li>
+                </ol>
+                <p style="margin-top: 15px; padding: 15px; background: #e0e8ff; border-radius: 8px;">
+                    <strong>💭 Refleksi:</strong> Semua ini berkaitan dengan <strong>ALGORITMA</strong>!
+                </p>
+            </div>
+        </div>
+
+        <!-- Penjelasan Materi -->
+        <div class="section">
+            <h2>📖 Penjelasan Materi</h2>
+            
+            <h3>Apa itu Algoritma?</h3>
+            <p><strong>Algoritma</strong> adalah urutan langkah-langkah logis untuk menyelesaikan masalah.</p>
+            
+            <div class="example-box">
+                <h4>Karakteristik Algoritma:</h4>
+                <ul>
+                    <li><strong>Input:</strong> Memiliki nol atau lebih masukan</li>
+                    <li><strong>Output:</strong> Memiliki minimal satu keluaran</li>
+                    <li><strong>Definiteness:</strong> Setiap langkah jelas</li>
+                    <li><strong>Finiteness:</strong> Harus berakhir</li>
+                    <li><strong>Effectiveness:</strong> Dapat dikerjakan</li>
+                </ul>
+            </div>
+
+            <h3>Cara Penulisan Algoritma</h3>
+            
+            <h4>1. Deskriptif</h4>
+            <div class="code-box">
+Algoritma Luas Persegi Panjang:
+1. Mulai
+2. Masukkan panjang
+3. Masukkan lebar
+4. Hitung luas = panjang × lebar
+5. Tampilkan luas
+6. Selesai
+            </div>
+
+            <h4>2. Pseudocode</h4>
+            <div class="code-box">
+MULAI
+    INPUT panjang, lebar
+    luas ← panjang * lebar
+    OUTPUT luas
+SELESAI
+            </div>
+
+            <h3>Struktur Dasar Pemrograman</h3>
+            
+            <h4>a) Sequence (Berurutan)</h4>
+            <p>Instruksi dijalankan berurutan dari atas ke bawah</p>
+            
+            <h4>b) Selection (Percabangan)</h4>
+            <div class="code-box">
+IF nilai >= 75 THEN
+    OUTPUT "Lulus"
+ELSE
+    OUTPUT "Tidak Lulus"
+            </div>
+            
+            <h4>c) Iteration (Perulangan)</h4>
+            <div class="code-box">
+FOR i = 1 TO 10 DO
+    OUTPUT i
+END FOR
+            </div>
+        </div>
+
+        <!-- Contoh Soal -->
+        <div class="section">
+            <h2>📝 Contoh Soal</h2>
+            
+            <div class="example-box">
+                <h3>Contoh: Menentukan Bilangan Genap/Ganjil</h3>
+                <div class="code-box">
+Algoritma:
+1. Mulai
+2. Input bilangan
+3. Jika bilangan mod 2 = 0
+       Tampilkan "Genap"
+   Jika tidak
+       Tampilkan "Ganjil"
+4. Selesai
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>Contoh: Mencari Nilai Terbesar dari 3 Bilangan</h3>
+                <div class="code-box">
+Algoritma:
+1. Mulai
+2. Input A, B, C
+3. Maks = A
+4. Jika B > Maks maka Maks = B
+5. Jika C > Maks maka Maks = C
+6. Tampilkan Maks
+7. Selesai
+                </div>
+            </div>
+        </div>
+
+        <!-- Latihan -->
+        <div class="section">
+            <h2>✍️ Latihan Soal</h2>
+            
+            <div class="example-box">
+                <h3>Soal 1</h3>
+                <p>Buatlah algoritma untuk menukar nilai dua variabel A dan B!</p>
+            </div>
+
+            <div class="example-box">
+                <h3>Soal 2</h3>
+                <p>Buatlah algoritma untuk menghitung faktorial dari bilangan n!</p>
+            </div>
+
+            <div class="example-box">
+                <h3>Soal 3</h3>
+                <p>Buatlah algoritma untuk mengkonversi suhu Celsius ke Fahrenheit!</p>
+                <p style="color: #666; font-size: 0.9em;">Rumus: F = (9/5 × C) + 32</p>
+            </div>
+        </div>
+
+        <!-- Kuis -->
+        <div class="section">
+            <h2>🎯 Tes/Kuis</h2>
+            <p style="background: #e0f2fe; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <strong>📌 Petunjuk:</strong> Pilih jawaban yang paling tepat!
+            </p>
+
+            <div id="quiz-container"></div>
+            <button class="submit-btn" onclick="checkAnswers()">✅ Submit Jawaban</button>
+            <div id="quiz-result"></div>
+        </div>
+
+        <!-- Kesimpulan -->
+        <div class="section">
+            <h2>📌 Kesimpulan</h2>
+            
+            <div class="example-box">
+                <ul style="padding-left: 20px; line-height: 2;">
+                    <li><strong>Algoritma</strong> adalah urutan langkah logis untuk menyelesaikan masalah</li>
+                    <li>Memiliki 5 karakteristik: Input, Output, Definiteness, Finiteness, Effectiveness</li>
+                    <li>Cara penulisan: <strong>Deskriptif, Pseudocode, Flowchart</strong></li>
+                    <li>Tiga struktur dasar: <strong>Sequence, Selection, Iteration</strong></li>
+                    <li>Algoritma penting untuk mengembangkan kemampuan berpikir logis</li>
+                </ul>
+            </div>
+
+            <div class="example-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <h3 style="color: white;">🚀 Langkah Selanjutnya</h3>
+                <ul style="padding-left: 20px; line-height: 2;">
+                    <li>Belajar bahasa pemrograman (Python, JavaScript, C++)</li>
+                    <li>Mempelajari struktur data</li>
+                    <li>Membuat aplikasi sederhana</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="section">
+            <h2>ℹ️ Informasi</h2>
+            <div class="footer-grid">
+                <div class="footer-item">
+                    <h3>👨‍🎓 Data Pembuat</h3>
+                    <p>Charlie Decka Wirald Yuardana<br>Kelas XIIB - Absen 4</p>
+                </div>
+                <div class="footer-item">
+                    <h3>🛠️ Aplikasi</h3>
+                    <p>HTML, CSS, JavaScript</p>
+                </div>
+                <div class="footer-item">
+                    <h3>🔗 Hubungan Materi</h3>
+                    <p>Matematika (Logika)<br>Informatika<br>Fisika (Prosedur)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Kuis
+        const quizData = [
+            {
+                question: "Apa yang dimaksud dengan algoritma?",
+                options: [
+                    "Bahasa pemrograman komputer",
+                    "Urutan langkah logis untuk menyelesaikan masalah",
+                    "Aplikasi komputer",
+                    "Hardware komputer"
+                ],
+                correct: 1
+            },
+            {
+                question: "Manakah yang BUKAN karakteristik algoritma?",
+                options: [
+                    "Memiliki input",
+                    "Memiliki output",
+                    "Harus menggunakan komputer",
+                    "Langkah-langkah jelas"
+                ],
+                correct: 2
+            },
+            {
+                question: "Struktur pemrograman untuk pengambilan keputusan adalah?",
+                options: [
+                    "Sequence",
+                    "Selection",
+                    "Iteration",
+                    "Function"
+                ],
+                correct: 1
+            },
+            {
+                question: "Perintah FOR dan WHILE termasuk dalam struktur?",
+                options: [
+                    "Sequential",
+                    "Selection",
+                    "Iteration",
+                    "Declaration"
+                ],
+                correct: 2
+            },
+            {
+                question: "Apa hasil dari: A=5, B=3, C=A+B?",
+                options: [
+                    "C=5",
+                    "C=3",
+                    "C=8",
+                    "C=53"
+                ],
+                correct: 2
+            },
+            {
+                question: "Operasi MOD digunakan untuk?",
+                options: [
+                    "Perkalian",
+                    "Pembagian",
+                    "Mencari sisa hasil bagi",
+                    "Penjumlahan"
+                ],
+                correct: 2
+            },
+            {
+                question: "Algoritma harus memiliki berapa output minimal?",
+                options: [
+                    "0 (tidak harus ada)",
+                    "1 (minimal satu)",
+                    "2 (minimal dua)",
+                    "Tidak terbatas"
+                ],
+                correct: 1
+            },
+            {
+                question: "Contoh penerapan algoritma dalam kehidupan sehari-hari?",
+                options: [
+                    "Melihat televisi",
+                    "Resep memasak",
+                    "Mendengar musik",
+                    "Tidur"
+                ],
+                correct: 1
+            }
+        ];
+
+        let userAnswers = {};
+
+        // Generate Kuis
+        function generateQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            userAnswers = {};
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'example-box';
+                questionDiv.style.marginBottom = '20px';
+                
+                let optionsHTML = '';
+                q.options.forEach((option, optIndex) => {
+                    optionsHTML += `
+                        <div class="quiz-option" onclick="selectAnswer(${index}, ${optIndex})" id="q${index}opt${optIndex}">
+                            ${String.fromCharCode(65 + optIndex)}. ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <h3>Soal ${index + 1}</h3>
+                    <p><strong>${q.question}</strong></p>
+                    <div id="question-${index}">
+                        ${optionsHTML}
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select Answer
+        function selectAnswer(questionIndex, optionIndex) {
+            const questionDiv = document.getElementById(`question-${questionIndex}`);
+            questionDiv.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.getElementById(`q${questionIndex}opt${optionIndex}`).classList.add('selected');
+            userAnswers[questionIndex] = optionIndex;
+        }
+
+        // Check Answers
+        function checkAnswers() {
+            let score = 0;
+            quizData.forEach((q, index) => {
+                const questionDiv = document.getElementById(`question-${index}`);
+                const options = questionDiv.querySelectorAll('.quiz-option');
+                
+                options.forEach((opt, optIndex) => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (optIndex === q.correct) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (userAnswers[index] === optIndex && optIndex !== q.correct) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                if (userAnswers[index] === q.correct) {
+                    score++;
+                }
+            });
+
+            const percentage = (score / quizData.length * 100).toFixed(0);
+            const resultDiv = document.getElementById('quiz-result');
+            
+            if (percentage >= 70) {
+                resultDiv.innerHTML = `
+                    <div class="result pass">
+                        🎉 Selamat! Nilai Anda: ${score}/${quizData.length} (${percentage}%)<br>
+                        Anda LULUS! Pemahaman Anda sangat baik!
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="result fail">
+                        📚 Nilai Anda: ${score}/${quizData.length} (${percentage}%)<br>
+                        Pelajari kembali materinya ya!
+                    </div>
+                `;
+            }
+
+            document.querySelector('.submit-btn').style.display = 'none';
+        }
+
+        // Generate quiz saat halaman dimuat
+        window.onload = function() {
+            generateQuiz();
+        };
+    </script>
+</body>
+</html>
